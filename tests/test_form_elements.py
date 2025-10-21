@@ -6,7 +6,8 @@ from pages.products_page import ProductsPage
 from pages.cart_page import CartPage
 from faker import Faker
 import allure
-
+from utilities.test_data_writer import write_user_to_csv
+ 
 @pytest.mark.usefixtures("setup")
 @allure.epic("UI Element Interactions")
 class TestFormElements:
@@ -27,7 +28,9 @@ class TestFormElements:
         # Each page object is responsible for actions on its own page.
         with allure.step("Navigate to signup page and start registration"):
             customer.go_to_signup_page()
-            customer.signup_new_customer(fake.name(), fake.email())
+            email = fake.email()
+            name = fake.name()
+            customer.signup_new_customer(name, email)
 
         # Now, interact with the elements on the CustomerPage.
         # The test calls high-level methods. The details of finding and clicking
@@ -64,10 +67,12 @@ class TestFormElements:
                 'password': "Test@1234",
                 'dob_day': 10,
                 'dob_month': "May",
-                'dob_year': 2003
+                'dob_year': 2003,
+                'email': email 
             }
             customer.fill_customer_details(user_data)
             customer.submit_creation_form()
+            write_user_to_csv("utilities/test_data.csv", user_data)
 
         with allure.step("Submit form and verify account creation by URL"):
             # customer.submit_creation_form()
