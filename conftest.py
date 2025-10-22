@@ -1,3 +1,6 @@
+"""
+
+
 # this file is used to define fixtures and hooks for pytest
 import pytest
 from utilities.browser_factory import BrowserFactory
@@ -7,7 +10,7 @@ import os # <--- Import os to handle file paths reliably
 # This new fixture will read the config file ONCE per test session
 @pytest.fixture(scope="session")
 def config():
-    """Reads the config.ini file and returns the config object."""
+    # Reads the config.ini file and returns the config object.
     config = configparser.ConfigParser()
     # Construct an absolute path to the config.ini file
     config_path = os.path.join(os.path.dirname(__file__), 'utilities', 'config.ini')
@@ -26,10 +29,9 @@ def pytest_addoption(parser):
 # Update the setup fixture to accept the new 'config' fixture
 @pytest.fixture(scope="class")
 def setup(request, config): # <--- Step 2: Add 'config' as an argument
-    """
-    The main setup fixture. It now reads the config, creates the driver,
-    and navigates to the base_url before handing control to the test.
-    """
+    # The main setup fixture. It now reads the config, creates the driver,
+    # and navigates to the base_url before handing control to the test.
+
     # Get browser settings
     browser = request.config.getoption("--browser")
     headless = request.config.getoption("--headless")
@@ -49,4 +51,68 @@ def setup(request, config): # <--- Step 2: Add 'config' as an argument
     yield
     
     # Teardown: runs after all tests in the class are finished
+    driver.quit()
+
+
+"""
+
+import pytest
+from utilities.browser_factory import BrowserFactory
+import configparser
+import os
+import allure
+
+# Load config once per session
+@pytest.fixture(scope="session")
+def config():
+    config = configparser.ConfigParser()
+    config_path = os.path.join(os.path.dirname(__file__), 'utilities', 'config.ini')
+    if not os.path.exists(config_path):
+        raise FileNotFoundError(f"Configuration file not found at: {config_path}")
+    config.read(config_path)
+    return config
+
+# CLI options
+def pytest_addoption(parser):
+    parser.addoption(
+        "--browser", 
+        action="append",
+        default=[],
+        help="Browsers to run tests"
+    )
+    parser.addoption("--headless", action="store_true", help="Run tests in headless mode")
+
+# Auto-parametrize test cases using the --browser CLI option
+def pytest_generate_tests(metafunc):
+    if "browser" in metafunc.fixturenames:
+        browsers = metafunc.config.getoption("browser")
+        
+        if not browsers:
+            browsers = ["chrome"]
+            
+        browsers = list(dict.fromkeys(browsers))
+        metafunc.parametrize("browser", browsers)
+
+# Fixture to provide browser to setup
+@pytest.fixture(scope="function")
+def browser(request):
+    return request.param
+
+# Setup browser driver
+@pytest.fixture(scope="function")
+def setup(request, config, browser):
+    headless = request.config.getoption("--headless")
+    print(f"\n[INFO] Running tests on browser: {browser}")
+
+    # Allure labels
+    # allure.dynamic.label("browser", browser)
+    allure.dynamic.parameter("Browser", browser)
+
+    base_url = config['DEFAULT']['base_url']
+    driver = BrowserFactory.get_driver(browser, headless=headless)
+    driver.get(base_url)
+    driver.maximize_window()
+
+    request.cls.driver = driver
+    yield
     driver.quit()
