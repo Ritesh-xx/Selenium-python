@@ -83,31 +83,3 @@ class TestFormElements:
                 f"Expected URL to contain '{expected_url_fragment}', but got '{current_url}'"
             )
    
-
-"""
-    @allure.feature("Web Tables")
-    @allure.title("Test Interaction with a Web Table in the Cart")
-    @allure.description("This test adds a product to the cart and verifies its details in the cart's web table.")
-    def test_cart_web_table(self):
-        # --- Setup ---
-        home = HomePage(self.driver)
-        products = ProductsPage(self.driver)
-        cart = CartPage(self.driver)
-
-        # --- Test Steps ---
-        # This test already follows the POM pattern well.
-        home.click_products()
-        products.add_first_product_to_cart()
-        products.click_view_cart()
-
-        # --- Verification ---
-        with allure.step("Verify data within the Web Table"):
-            assert cart.is_cart_table_visible(), "The cart's web table should be visible."
-            
-            description = cart.get_first_row_description()
-            price = cart.get_first_row_price()
-
-            assert "Blue Top" in description, "The product description in the table is incorrect."
-            assert "Rs. 500" in price, "The product price in the table is incorrect."
-
-"""

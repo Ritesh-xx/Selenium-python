@@ -2,9 +2,11 @@ import pytest
 
 if __name__ == "__main__":
     pytest.main([
-        "-s",                     # print output to console
-        "tests/",                 # folder to run tests from
-        "--html=reports/report.html",  # generate HTML report
-        "--self-contained-html",  # embed CSS in the HTML report
-        "--headless"              # run tests in headless mode (added)
+        "-s",
+        "tests/",
+        "--html=reports/report.html",             # Pytest HTML report
+        "--self-contained-html",                  # Embed CSS/JS
+        "--alluredir=reports/allure-results",     # ✅ Needed for Allure results
+        "--headless",                             # Custom flag for your browser setup
+        "-n", "4"                                  # Run in 4 parallel processes
     ])

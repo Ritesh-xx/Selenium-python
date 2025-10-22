@@ -24,9 +24,9 @@ class CartPage(BasePage):
     @allure.step("Get the description from the first row of the cart table")
     def get_first_row_description(self):
         """Reads and returns text from a specific cell in the table."""
-        return self.get_element_text(self.FIRST_ROW_DESCRIPTION)
+        return self.get_text(self.FIRST_ROW_DESCRIPTION)
 
     @allure.step("Get the price from the first row of the cart table")
     def get_first_row_price(self):
         """Reads and returns text from another cell in the table."""
-        return self.get_element_text(self.FIRST_ROW_PRICE)
+        return self.get_text(self.FIRST_ROW_PRICE)
