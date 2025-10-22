@@ -39,14 +39,8 @@ jobs:
           --self-contained-html \
           --alluredir=reports/allure-results
 
-    - name: Install Allure
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y default-jre
-        curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/latest/download/allure-2.27.0.tgz
-        tar -zxvf allure.tgz
-        sudo mv allure-2.27.0 /opt/allure
-        sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+    - name: Set up Allure CLI
+      uses: allure-actions/setup-allure@v1
 
     - name: Generate Allure HTML Report
       run: |
