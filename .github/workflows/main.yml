@@ -30,6 +30,12 @@ jobs:
     - name: Verify Chrome installed
       run: google-chrome --version
 
+    - name: Install Allure CLI
+      run: |
+        sudo apt-add-repository ppa:qameta/allure -y
+        sudo apt-get update
+        sudo apt-get install allure -y
+
     - name: Run Pytest with HTML and Allure reporting
       run: pytest tests/ --browser chrome  --headless --html=reports/report.html --self-contained-html --alluredir=reports/allure-results
 
