@@ -39,9 +39,6 @@ jobs:
           --self-contained-html \
           --alluredir=reports/allure-results
 
-    - name: Set up Allure CLI
-      uses: allure-actions/setup-allure@v1
-
     - name: Generate Allure HTML Report
       run: |
         allure generate reports/allure-results -o reports/allure-report --clean
