@@ -27,8 +27,10 @@ class BrowserFactory:
         elif browser_name == "edge":
             options = EdgeOptions()
             if headless:
-                options.add_argument("--headless")
+                options.add_argument("--headless=new")  # Use the new headless mode flag for Edge Chromium
                 options.add_argument("--window-size=1920,1080")
+                options.add_argument("--disable-gpu")  # recommended for headless
+                options.add_argument("--no-sandbox")   # optional but useful for some environments
             driver = webdriver.Edge(options=options)
         
         else:
