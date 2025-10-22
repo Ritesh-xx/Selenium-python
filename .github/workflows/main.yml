@@ -31,17 +31,11 @@ jobs:
       run: google-chrome --version
 
     - name: Run Pytest with HTML and Allure reporting
-      run: |
-        pytest tests/ \
-          --browser chrome \
-          --headless \
-          --html=reports/report.html \
-          --self-contained-html \
-          --alluredir=reports/allure-results
+      run: pytest tests/ --browser chrome  --headless --html=reports/report.html --self-contained-html --alluredir=reports/allure-results
+
 
     - name: Generate Allure HTML Report
-      run: |
-        allure generate reports/allure-results -o reports/allure-report --clean
+      run: allure generate reports/allure-results -o reports/allure-report --clean
 
     - name: Upload Pytest HTML report
       uses: actions/upload-artifact@v4
