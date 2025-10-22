@@ -53,13 +53,13 @@ jobs:
         allure generate reports/allure-results -o reports/allure-report --clean
 
     - name: Upload Pytest HTML report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: pytest-html-report
         path: reports/report.html
 
     - name: Upload Allure report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: allure-report
         path: reports/allure-report
