@@ -38,12 +38,12 @@ class TestFormElements:
         with allure.step("Interact with Radio Button"):
             # Assume CustomerPage has a method 'select_title_mr'
             # that uses self.click(self.TITLE_MR_RADIO)
-            customer.click(customer.TITLE_MR_RADIO)
+            customer.js_click(customer.TITLE_MR_RADIO)
             # You would ideally have a method like 'is_title_mr_selected()'
             # in CustomerPage to verify this.
 
         with allure.step("Interact with Checkbox"):
-            customer.click(customer.NEWSLETTER_CHECKBOX)
+            customer.js_click(customer.NEWSLETTER_CHECKBOX)
             # You would ideally have a method like 'is_newsletter_checked()'
             # in CustomerPage to verify this.
 

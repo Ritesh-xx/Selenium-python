@@ -7,15 +7,28 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import TimeoutException
 import time
 import allure
+from selenium.common.exceptions import StaleElementReferenceException
 
 class BasePage:
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(driver, 20)
 
-    def click(self, locator):
-        """Waits for an element to be clickable and then performs a standard click."""
-        self.wait.until(EC.element_to_be_clickable(locator)).click()
+    # def click(self, locator):
+    #     """Waits for an element to be clickable and then performs a standard click."""
+    #     self.wait.until(EC.element_to_be_clickable(locator)).click()
+
+    def click(self, locator, retries=3):
+   
+        for attempt in range(retries):
+            try:
+                element = self.wait.until(EC.element_to_be_clickable(locator))
+                element.click()
+                return
+            except StaleElementReferenceException:
+                if attempt == retries - 1:
+                    raise
+                time.sleep(0.5) 
 
     def enter_text(self, locator, text):
         """Waits for an element to be visible, clears it, and enters text."""
