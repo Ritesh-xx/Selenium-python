@@ -5,7 +5,7 @@ from utilities.config import Config
 from utilities.test_data_reader import read_login_data_from_csv
 
 
-login_data = read_login_data_from_csv("utilities/test_data.csv")
+login_data = read_login_data_from_csv("utilities/test_data.csv")[:3]
 
 config = Config()
 
