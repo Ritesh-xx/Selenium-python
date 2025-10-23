@@ -1,0 +1,39 @@
+
+[INFO] Running tests on browser: edge
+Screenshot saved: C:\Users\Ascendion\Desktop\Selenium\automation_project\reports\login_page_before_login_2025-10-23_19-58-47.png
+Screenshot saved: C:\Users\Ascendion\Desktop\Selenium\automation_project\reports\home_page_after_login_2025-10-23_19-58-51.png
+Found 34 products to hover over.
+Hovering over product 1
+Hovering over product 2
+Hovering over product 3
+Hovering over product 4
+Hovering over product 5
+Hovering over product 6
+Hovering over product 7
+Hovering over product 8
+Hovering over product 9
+Hovering over product 10
+Hovering over product 11
+Hovering over product 12
+Hovering over product 13
+Hovering over product 14
+Hovering over product 15
+Hovering over product 16
+Hovering over product 17
+Hovering over product 18
+Hovering over product 19
+Hovering over product 20
+Hovering over product 21
+Hovering over product 22
+Hovering over product 23
+Hovering over product 24
+Hovering over product 25
+Hovering over product 26
+Hovering over product 27
+Hovering over product 28
+Hovering over product 29
+Hovering over product 30
+Hovering over product 31
+Hovering over product 32
+Hovering over product 33
+Hovering over product 34
