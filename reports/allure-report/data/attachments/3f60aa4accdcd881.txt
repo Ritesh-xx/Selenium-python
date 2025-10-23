@@ -1,2 +1,0 @@
-
-[INFO] Running tests on browser: chrome

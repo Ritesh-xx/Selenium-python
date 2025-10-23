@@ -1,3 +1,4 @@
+import os
 import pytest
 import allure
 from pages.base_page import BasePage
@@ -46,3 +47,14 @@ class TestCartWebTable:
             price = cart.get_first_row_price()
 
             assert "jeans" in description.lower(), "The product description does not contain 'jeans'."
+
+        with allure.step("taking screenshot of cart page"):
+            os.makedirs("Reports", exist_ok=True)
+            screenshot_path = "Reports/cart_page.png"
+
+            self.driver.save_screenshot(screenshot_path)
+            allure.attach.file(
+                screenshot_path,
+                name="Cart Page Screenshot",
+                attachment_type=allure.attachment_type.PNG
+            )
