@@ -4,9 +4,9 @@ name: Run Selenium Tests with Allure and HTML Report
 
 on:
   push:
-    branches: [ main ]
+    branches: [ dev ]
   pull_request:
-    branches: [ main ]
+    branches: [ dev ]
 
 jobs:
   test:
@@ -91,3 +91,10 @@ jobs:
       with:
         name: allure-report-${{ matrix.browser }}
         path: reports/allure-report-${{ matrix.browser }}
+
+    - name: Upload Screenshots
+      if: always() # Run even if tests fail
+      uses: actions/upload-artifact@v4
+      with:
+        name: screenshots-${{ matrix.browser }}
+        path: reports/*.png
